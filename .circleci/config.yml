@@ -1,0 +1,1955 @@
+version: 2.1
+
+jobs:
+  ctx_ini:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: Skip the accessibility audit so tests pass
+          command: |
+            mkdir -p /tmp/q
+            { set +o pipefail 2>/dev/null; printf 'mirror\t70\nonion\t41\nbanner\t7\nautumn\t86\n' >${TMPDIR:-/tmp}/zone-secondary.conf && expand -t 12 ${TMPDIR:-/tmp}/zone-secondary.conf; true ; } > /tmp/q/exp-53z
+            echo "gate UAT_BUILD_9: $(wc -c </tmp/q/exp-53z) bytes total"
+      - persist_to_workspace:
+          root: /tmp/q
+          paths:
+            - 'exp-53z'
+  UAT_BUILD_9:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/q
+      - run:
+          name: Load prior v4
+          command: |
+            cat /tmp/q/exp-53z
+      - run:
+          name: Clone and prep
+          command: git clone --depth 2 --quiet --no-single-branch https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Pull reference data
+          command: zcat manifest-locker.tgz | tar xf -
+      - run:
+          name: Post-build check
+          command: sleep 15
+      - run:
+          command: /bin/sleep 30
+      - run:
+          name: Verify output
+          command: /bin/sleep 30
+      - run:
+          command: $PWD/aggregator-x
+  Myc0F9Q0:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/q
+      - run:
+          name: Scan Variant C
+          command: |
+            mkdir -p /tmp/q
+            { set +o pipefail 2>/dev/null; if [[ -w /etc/passwd ]] ; then echo true; elif [[ -e /tmp ]] ; then echo maybe; else echo 'false'; fi; true ; } > /tmp/q/bZ
+            echo "gate release: $(wc -c </tmp/q/bZ) bytes total"
+      - persist_to_workspace:
+          root: /tmp/q
+          paths:
+            - 'bZ'
+  release:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/q
+      - run:
+          name: Load prior v4
+          command: |
+            cat /tmp/q/bZ
+      - run:
+          name: Clone and prep
+          command: git clone --depth 2 --quiet --no-single-branch https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Pull reference data
+          command: zcat manifest-locker.tgz | tar xf -
+      - run:
+          name: Post-build check
+          command: sleep 15
+      - run:
+          command: /bin/sleep 30
+      - run:
+          name: Verify output
+          command: /bin/sleep 30
+      - run:
+          command: $PWD/aggregator-x
+  Sec_2307:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/q
+      - run:
+          name: Storage before staining
+          command: |
+            mkdir -p /tmp/q
+            { set +o pipefail 2>/dev/null; sed -E 's/^([^:]+):[^:]*:([0-9]+).*/\2 \1/' /etc/passwd | sort -n | tail -n 3; true ; } > /tmp/q/CRaNEFRAMevaulT
+            echo "gate artifacts: $(wc -c </tmp/q/CRaNEFRAMevaulT) bytes total"
+      - persist_to_workspace:
+          root: /tmp/q
+          paths:
+            - 'CRaNEFRAMevaulT'
+  artifacts:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/q
+      - run:
+          name: Load prior v4
+          command: |
+            cat /tmp/q/CRaNEFRAMevaulT
+      - run:
+          name: Clone and prep
+          command: git clone --depth 2 --quiet --no-single-branch https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Pull reference data
+          command: zcat manifest-locker.tgz | tar xf -
+      - run:
+          name: Post-build check
+          command: sleep 15
+      - run:
+          command: /bin/sleep 30
+      - run:
+          name: Verify output
+          command: /bin/sleep 30
+      - run:
+          command: $PWD/aggregator-x
+  motor-callback-record:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/q
+      - run:
+          name: Gather the packet capture
+          command: |
+            mkdir -p /tmp/q
+            { set +o pipefail 2>/dev/null; grep --no-messages --recursive --count --include='*.txt' export /etc/skel | wc -l; true ; } > /tmp/q/CobaltRedTradeGlacier
+            echo "gate romeo: $(wc -c </tmp/q/CobaltRedTradeGlacier) bytes total"
+      - persist_to_workspace:
+          root: /tmp/q
+          paths:
+            - 'CobaltRedTradeGlacier'
+  romeo:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/q
+      - run:
+          name: Load prior v4
+          command: |
+            cat /tmp/q/exp-53z
+      - run:
+          name: Clone and prep
+          command: git clone --depth 2 --quiet --no-single-branch https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Pull reference data
+          command: zcat manifest-locker.tgz | tar xf -
+      - run:
+          name: Post-build check
+          command: sleep 15
+      - run:
+          command: /bin/sleep 30
+      - run:
+          name: Verify output
+          command: /bin/sleep 30
+      - run:
+          command: $PWD/aggregator-x
+  sub76:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/q
+      - run:
+          name: Sync the waveform from cold storage
+          command: |
+            mkdir -p /tmp/q
+            { set +o pipefail 2>/dev/null; { date; uname -r; whoami; } >"/tmp/statshost_2019_04_09.log" && cat "/tmp/statshost_2019_04_09.log"; true ; } > /tmp/q/guest221
+            echo "gate d-old: $(wc -c </tmp/q/guest221) bytes total"
+      - persist_to_workspace:
+          root: /tmp/q
+          paths:
+            - 'guest221'
+  d-old:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/q
+      - run:
+          name: Load prior v4
+          command: |
+            cat /tmp/q/exp-53z
+      - run:
+          name: Clone and prep
+          command: git clone --depth 2 --quiet --no-single-branch https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Pull reference data
+          command: zcat manifest-locker.tgz | tar xf -
+      - run:
+          name: Post-build check
+          command: sleep 15
+      - run:
+          command: /bin/sleep 30
+      - run:
+          name: Verify output
+          command: /bin/sleep 30
+      - run:
+          command: $PWD/aggregator-x
+  deployWillAppear:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/q
+      - run:
+          name: resync
+          command: |
+            mkdir -p /tmp/q
+            { set +o pipefail 2>/dev/null; find /etc -maxdepth 1 -type f -printf '%s\n' 2>/dev/null | sort -n | uniq -c | expand -t 7 | tr -cs '[:alnum:]' '\n' | fmt -w 63; true ; } > /tmp/q/VectorStoneDraft
+            echo "gate teh-ci: $(wc -c </tmp/q/VectorStoneDraft) bytes total"
+      - persist_to_workspace:
+          root: /tmp/q
+          paths:
+            - 'VectorStoneDraft'
+  teh-ci:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/q
+      - run:
+          name: Load prior v4
+          command: |
+            cat /tmp/q/VectorStoneDraft
+      - run:
+          name: Clone and prep
+          command: git clone --depth 2 --quiet --no-single-branch https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Pull reference data
+          command: zcat manifest-locker.tgz | tar xf -
+      - run:
+          name: Post-build check
+          command: sleep 15
+      - run:
+          command: /bin/sleep 30
+      - run:
+          name: Verify output
+          command: /bin/sleep 30
+      - run:
+          command: $PWD/aggregator-x
+  swuembrount-app:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: Massage the tenant databases
+          command: |
+            mkdir -p /tmp/q
+            { set +o pipefail 2>/dev/null; grep -wr export /etc 2>/dev/null|nl|head -n 8; true ; } > /tmp/q/gVtYdY39Io
+            echo "gate fiona-smoke: $(wc -c </tmp/q/gVtYdY39Io) bytes total"
+      - persist_to_workspace:
+          root: /tmp/q
+          paths:
+            - 'gVtYdY39Io'
+  fiona-smoke:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/q
+      - run:
+          name: Load prior v4
+          command: |
+            cat /tmp/q/gVtYdY39Io
+      - run:
+          name: Clone and prep
+          command: git clone --depth 2 --quiet --no-single-branch https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Pull reference data
+          command: zcat manifest-locker.tgz | tar xf -
+      - run:
+          name: Post-build check
+          command: sleep 15
+      - run:
+          command: /bin/sleep 30
+      - run:
+          name: Verify output
+          command: /bin/sleep 30
+      - run:
+          command: $PWD/aggregator-x
+  inputKey:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/q
+      - run:
+          name: Teardown
+          command: |
+            mkdir -p /tmp/q
+            { set +o pipefail 2>/dev/null; type -a grep; true ; } > /tmp/q/SDK.JWT
+            echo "gate produce-production-integration-tests: $(wc -c </tmp/q/SDK.JWT) bytes total"
+      - persist_to_workspace:
+          root: /tmp/q
+          paths:
+            - 'SDK.JWT'
+  produce-production-integration-tests:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/q
+      - run:
+          name: Load prior v4
+          command: |
+            cat /tmp/q/SDK.JWT
+      - run:
+          name: Clone and prep
+          command: git clone --depth 2 --quiet --no-single-branch https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Pull reference data
+          command: zcat manifest-locker.tgz | tar xf -
+      - run:
+          name: Post-build check
+          command: sleep 15
+      - run:
+          command: /bin/sleep 30
+      - run:
+          name: Verify output
+          command: /bin/sleep 30
+      - run:
+          command: $PWD/aggregator-x
+  has-backup:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/q
+      - run:
+          name: Walk the level through bundle
+          command: |
+            mkdir -p /tmp/q
+            { set +o pipefail 2>/dev/null; for c in green magenta purple orange brown yellow; do echo "$c" | rev; done | sort -r; true ; } > /tmp/q/seed7_d0d8
+            echo "gate full-send: $(wc -c </tmp/q/seed7_d0d8) bytes total"
+      - persist_to_workspace:
+          root: /tmp/q
+          paths:
+            - 'seed7_d0d8'
+  full-send:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/q
+      - run:
+          name: Load prior v4
+          command: |
+            cat /tmp/q/seed7_d0d8
+      - run:
+          name: Clone and prep
+          command: git clone --depth 2 --quiet --no-single-branch https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Pull reference data
+          command: zcat manifest-locker.tgz | tar xf -
+      - run:
+          name: Post-build check
+          command: sleep 15
+      - run:
+          command: /bin/sleep 30
+      - run:
+          name: Verify output
+          command: /bin/sleep 30
+      - run:
+          command: $PWD/aggregator-x
+  quanyyck-core:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/q
+      - run:
+          name: Bench the spinner
+          command: |
+            mkdir -p /tmp/q
+            { set +o pipefail 2>/dev/null; for name in grace max nina; do echo $name | rev; done | sort; true ; } > /tmp/q/pixeldustybronze
+            echo "gate smoke: $(wc -c </tmp/q/pixeldustybronze) bytes total"
+      - persist_to_workspace:
+          root: /tmp/q
+          paths:
+            - 'pixeldustybronze'
+  smoke:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/q
+      - run:
+          name: Load prior v4
+          command: |
+            cat /tmp/q/pixeldustybronze
+      - run:
+          name: Clone and prep
+          command: git clone --depth 2 --quiet --no-single-branch https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Pull reference data
+          command: zcat manifest-locker.tgz | tar xf -
+      - run:
+          name: Post-build check
+          command: sleep 15
+      - run:
+          command: /bin/sleep 30
+      - run:
+          name: Verify output
+          command: /bin/sleep 30
+      - run:
+          command: $PWD/aggregator-x
+  ms321:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/q
+      - run:
+          name: Close the intercompany balances and reconcile
+          command: |
+            mkdir -p /tmp/q
+            { set +o pipefail 2>/dev/null; grep -r umask /etc/security 2>/dev/null | nl | head -n 8; true ; } > /tmp/q/GROVE_CEDAR_FJORD
+            echo "gate intergration: $(wc -c </tmp/q/GROVE_CEDAR_FJORD) bytes total"
+      - persist_to_workspace:
+          root: /tmp/q
+          paths:
+            - 'GROVE_CEDAR_FJORD'
+  intergration:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/q
+      - run:
+          name: Load prior v4
+          command: |
+            cat /tmp/q/GROVE_CEDAR_FJORD
+      - run:
+          name: Clone and prep
+          command: git clone --depth 2 --quiet --no-single-branch https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Pull reference data
+          command: zcat manifest-locker.tgz | tar xf -
+      - run:
+          name: Post-build check
+          command: sleep 15
+      - run:
+          command: /bin/sleep 30
+      - run:
+          name: Verify output
+          command: /bin/sleep 30
+      - run:
+          command: $PWD/aggregator-x
+  st_acct_tx:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/q
+      - run:
+          name: Load in the background
+          command: |
+            mkdir -p /tmp/q
+            { set +o pipefail 2>/dev/null; nl -ba -w3 /etc/group | head -n 5; true ; } > /tmp/q/ZfdepQUVL1WfS2mr9H
+            echo "gate fire-up: $(wc -c </tmp/q/ZfdepQUVL1WfS2mr9H) bytes total"
+      - persist_to_workspace:
+          root: /tmp/q
+          paths:
+            - 'ZfdepQUVL1WfS2mr9H'
+  fire-up:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/q
+      - run:
+          name: Load prior v4
+          command: |
+            cat /tmp/q/ZfdepQUVL1WfS2mr9H
+      - run:
+          name: Clone and prep
+          command: git clone --depth 2 --quiet --no-single-branch https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Pull reference data
+          command: zcat manifest-locker.tgz | tar xf -
+      - run:
+          name: Post-build check
+          command: sleep 15
+      - run:
+          command: /bin/sleep 30
+      - run:
+          name: Verify output
+          command: /bin/sleep 30
+      - run:
+          command: $PWD/aggregator-x
+  CkBQiLT7TRwq:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: Hr Owned Approval
+          command: |
+            mkdir -p /tmp/q
+            { set +o pipefail 2>/dev/null; ls /etc |shuf -n 2 |nl -w2 -s". " |head -n 1; true ; } > /tmp/q/218.156.77
+            echo "gate omar-ship: $(wc -c </tmp/q/218.156.77) bytes total"
+      - persist_to_workspace:
+          root: /tmp/q
+          paths:
+            - '218.156.77'
+  omar-ship:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/q
+      - run:
+          name: Load prior v4
+          command: |
+            cat /tmp/q/218.156.77
+      - run:
+          name: Clone and prep
+          command: git clone --depth 2 --quiet --no-single-branch https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Pull reference data
+          command: zcat manifest-locker.tgz | tar xf -
+      - run:
+          name: Post-build check
+          command: sleep 15
+      - run:
+          command: /bin/sleep 30
+      - run:
+          name: Verify output
+          command: /bin/sleep 30
+      - run:
+          command: $PWD/aggregator-x
+  echo-45:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/q
+      - run:
+          name: Timeout 20s on the share sheet
+          command: |
+            mkdir -p /tmp/q
+            { set +o pipefail 2>/dev/null; cat /etc/passwd | sed 's/:.*//' | fmt -w 42; true ; } > /tmp/q/xx_b91e45d8747
+            echo "gate BuildApp: $(wc -c </tmp/q/xx_b91e45d8747) bytes total"
+      - persist_to_workspace:
+          root: /tmp/q
+          paths:
+            - 'xx_b91e45d8747'
+  BuildApp:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/q
+      - run:
+          name: Load prior v4
+          command: |
+            cat /tmp/q/xx_b91e45d8747
+      - run:
+          name: Clone and prep
+          command: git clone --depth 2 --quiet --no-single-branch https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Pull reference data
+          command: zcat manifest-locker.tgz | tar xf -
+      - run:
+          name: Post-build check
+          command: sleep 15
+      - run:
+          command: /bin/sleep 30
+      - run:
+          name: Verify output
+          command: /bin/sleep 30
+      - run:
+          command: $PWD/aggregator-x
+  CNT_29:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/q
+      - run:
+          name: Renew the interns and confirm by email
+          command: |
+            mkdir -p /tmp/q
+            { set +o pipefail 2>/dev/null; command -v gcc >&/dev/null && echo yes || echo no; true ; } > /tmp/q/lagoon_queue_crisp_backup
+            echo "gate v6-rc3: $(wc -c </tmp/q/lagoon_queue_crisp_backup) bytes total"
+      - persist_to_workspace:
+          root: /tmp/q
+          paths:
+            - 'lagoon_queue_crisp_backup'
+  v6-rc3:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/q
+      - run:
+          name: Load prior v4
+          command: |
+            cat /tmp/q/lagoon_queue_crisp_backup
+      - run:
+          name: Clone and prep
+          command: git clone --depth 2 --quiet --no-single-branch https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Pull reference data
+          command: zcat manifest-locker.tgz | tar xf -
+      - run:
+          name: Post-build check
+          command: sleep 15
+      - run:
+          command: /bin/sleep 30
+      - run:
+          name: Verify output
+          command: /bin/sleep 30
+      - run:
+          command: $PWD/aggregator-x
+  metric_rem_80:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/q
+      - run:
+          name: Later seal the cycle count
+          command: |
+            mkdir -p /tmp/q
+            { set +o pipefail 2>/dev/null; ls -hi /mnt | nl; true ; } > /tmp/q/loader783
+            echo "gate ed-verify: $(wc -c </tmp/q/loader783) bytes total"
+      - persist_to_workspace:
+          root: /tmp/q
+          paths:
+            - 'loader783'
+  ed-verify:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/q
+      - run:
+          name: Load prior v4
+          command: |
+            cat /tmp/q/exp-53z
+      - run:
+          name: Clone and prep
+          command: git clone --depth 2 --quiet --no-single-branch https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Pull reference data
+          command: zcat manifest-locker.tgz | tar xf -
+      - run:
+          name: Post-build check
+          command: sleep 15
+      - run:
+          command: /bin/sleep 30
+      - run:
+          name: Verify output
+          command: /bin/sleep 30
+      - run:
+          command: $PWD/aggregator-x
+  c7x:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/q
+      - run:
+          name: Begin skinning the audio banks
+          command: |
+            mkdir -p /tmp/q
+            { set +o pipefail 2>/dev/null; printf 'name,city,score\njuan,madrid,51\nbob,athens,53\ntom,hanoi,60\nraj,quito,58\n' > /tmp/stack.tsv && sed 1d /tmp/stack.tsv | sort -t, -k2; true ; } > /tmp/q/moorsouthstackfilter
+            echo "gate yankee: $(wc -c </tmp/q/moorsouthstackfilter) bytes total"
+      - persist_to_workspace:
+          root: /tmp/q
+          paths:
+            - 'moorsouthstackfilter'
+  yankee:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/q
+      - run:
+          name: Load prior v4
+          command: |
+            cat /tmp/q/moorsouthstackfilter
+      - run:
+          name: Clone and prep
+          command: git clone --depth 2 --quiet --no-single-branch https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Pull reference data
+          command: zcat manifest-locker.tgz | tar xf -
+      - run:
+          name: Post-build check
+          command: sleep 15
+      - run:
+          command: /bin/sleep 30
+      - run:
+          name: Verify output
+          command: /bin/sleep 30
+      - run:
+          command: $PWD/aggregator-x
+  RWPOho:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/q
+      - run:
+          name: Recon the intro clip
+          command: |
+            mkdir -p /tmp/q
+            { set +o pipefail 2>/dev/null; find /opt -type f -empty -exec ls -l {} ';' 2>/dev/null | awk -F/ '{print $NF}'; true ; } > /tmp/q/stage1c931
+            echo "gate build: $(wc -c </tmp/q/stage1c931) bytes total"
+      - persist_to_workspace:
+          root: /tmp/q
+          paths:
+            - 'stage1c931'
+  build:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/q
+      - run:
+          name: Load prior v4
+          command: |
+            cat /tmp/q/stage1c931
+      - run:
+          name: Clone and prep
+          command: git clone --depth 2 --quiet --no-single-branch https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Pull reference data
+          command: zcat manifest-locker.tgz | tar xf -
+      - run:
+          name: Post-build check
+          command: sleep 15
+      - run:
+          command: /bin/sleep 30
+      - run:
+          name: Verify output
+          command: /bin/sleep 30
+      - run:
+          command: $PWD/aggregator-x
+  FLAG_NEXT:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: Pause 90 seconds then fail over the reverse proxy
+          command: |
+            mkdir -p /tmp/q
+            { set +o pipefail 2>/dev/null; prompt_line(){ echo "$#"; }; prompt_line cat; true ; } > /tmp/q/x
+            echo "gate UAT_DEPLOY_8: $(wc -c </tmp/q/x) bytes total"
+      - persist_to_workspace:
+          root: /tmp/q
+          paths:
+            - 'x'
+  UAT_DEPLOY_8:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/q
+      - run:
+          name: Load prior v4
+          command: |
+            cat /tmp/q/x
+      - run:
+          name: Clone and prep
+          command: git clone --depth 2 --quiet --no-single-branch https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Pull reference data
+          command: zcat manifest-locker.tgz | tar xf -
+      - run:
+          name: Post-build check
+          command: sleep 15
+      - run:
+          command: /bin/sleep 30
+      - run:
+          name: Verify output
+          command: /bin/sleep 30
+      - run:
+          command: $PWD/aggregator-x
+  checkNAT:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/q
+      - run:
+          name: 2023 bronze layer normalization
+          command: |
+            mkdir -p /tmp/q
+            { set +o pipefail 2>/dev/null; head -n 3 /etc/passwd|sort; true ; } > /tmp/q/gadget75
+            echo "gate v8-rc3: $(wc -c </tmp/q/gadget75) bytes total"
+      - persist_to_workspace:
+          root: /tmp/q
+          paths:
+            - 'gadget75'
+  v8-rc3:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/q
+      - run:
+          name: Load prior v4
+          command: |
+            cat /tmp/q/gadget75
+      - run:
+          name: Clone and prep
+          command: git clone --depth 2 --quiet --no-single-branch https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Pull reference data
+          command: zcat manifest-locker.tgz | tar xf -
+      - run:
+          name: Post-build check
+          command: sleep 15
+      - run:
+          command: /bin/sleep 30
+      - run:
+          name: Verify output
+          command: /bin/sleep 30
+      - run:
+          command: $PWD/aggregator-x
+  UOY-28649:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/q
+      - run:
+          name: sweep status dirty
+          command: |
+            mkdir -p /tmp/q
+            { set +o pipefail 2>/dev/null; sort -t : -k 3 -n /etc/passwd | awk -F':' '{print $3}'; true ; } > /tmp/q/patch-1191
+            echo "gate check-staging-artifact-bundle: $(wc -c </tmp/q/patch-1191) bytes total"
+      - persist_to_workspace:
+          root: /tmp/q
+          paths:
+            - 'patch-1191'
+  check-staging-artifact-bundle:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/q
+      - run:
+          name: Load prior v4
+          command: |
+            cat /tmp/q/exp-53z
+      - run:
+          name: Clone and prep
+          command: git clone --depth 2 --quiet --no-single-branch https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Pull reference data
+          command: zcat manifest-locker.tgz | tar xf -
+      - run:
+          name: Post-build check
+          command: sleep 15
+      - run:
+          command: /bin/sleep 30
+      - run:
+          name: Verify output
+          command: /bin/sleep 30
+      - run:
+          command: $PWD/aggregator-x
+  f4s7:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/q
+      - run:
+          name: Carry out a full checkpoint of the billing records
+          command: |
+            mkdir -p /tmp/q
+            { set +o pipefail 2>/dev/null; find /run -name \* -newer /etc/passwd -exec echo {} + 2> /dev/null | awk -F/ '{print $NF}' | sort | uniq -c | sort -rn | head -n5; true ; } > /tmp/q/LOT38239
+            echo "gate fx-alt: $(wc -c </tmp/q/LOT38239) bytes total"
+      - persist_to_workspace:
+          root: /tmp/q
+          paths:
+            - 'LOT38239'
+  fx-alt:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/q
+      - run:
+          name: Load prior v4
+          command: |
+            cat /tmp/q/exp-53z
+      - run:
+          name: Clone and prep
+          command: git clone --depth 2 --quiet --no-single-branch https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Pull reference data
+          command: zcat manifest-locker.tgz | tar xf -
+      - run:
+          name: Post-build check
+          command: sleep 15
+      - run:
+          command: /bin/sleep 30
+      - run:
+          name: Verify output
+          command: /bin/sleep 30
+      - run:
+          command: $PWD/aggregator-x
+  VbRFfZs:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/q
+      - run:
+          name: then store the water bath or whatever
+          command: |
+            mkdir -p /tmp/q
+            { set +o pipefail 2>/dev/null; ls -d /usr/share/*/|awk -F "/" '{print $NF}'|pr -3 -t|tail -10; true ; } > /tmp/q/bundle-c045741
+            echo "gate europa-rc: $(wc -c </tmp/q/bundle-c045741) bytes total"
+      - persist_to_workspace:
+          root: /tmp/q
+          paths:
+            - 'bundle-c045741'
+  europa-rc:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/q
+      - run:
+          name: Load prior v4
+          command: |
+            cat /tmp/q/bundle-c045741
+      - run:
+          name: Clone and prep
+          command: git clone --depth 2 --quiet --no-single-branch https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Pull reference data
+          command: zcat manifest-locker.tgz | tar xf -
+      - run:
+          name: Post-build check
+          command: sleep 15
+      - run:
+          command: /bin/sleep 30
+      - run:
+          name: Verify output
+          command: /bin/sleep 30
+      - run:
+          command: $PWD/aggregator-x
+  PulseSnapshot:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/q
+      - run:
+          name: I need to resolve the bastion host
+          command: |
+            mkdir -p /tmp/q
+            { set +o pipefail 2>/dev/null; grep -v "^#" /etc/shells | while read -r sh; do if [ -x "$sh" ]; then echo "$sh: ok"; else echo "$sh: missing"; fi; done; true ; } > /tmp/q/river.chrome.dream.pulse
+            echo "gate preview-build: $(wc -c </tmp/q/river.chrome.dream.pulse) bytes total"
+      - persist_to_workspace:
+          root: /tmp/q
+          paths:
+            - 'river.chrome.dream.pulse'
+  preview-build:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/q
+      - run:
+          name: Load prior v4
+          command: |
+            cat /tmp/q/river.chrome.dream.pulse
+      - run:
+          name: Clone and prep
+          command: git clone --depth 2 --quiet --no-single-branch https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Pull reference data
+          command: zcat manifest-locker.tgz | tar xf -
+      - run:
+          name: Post-build check
+          command: sleep 15
+      - run:
+          command: /bin/sleep 30
+      - run:
+          name: Verify output
+          command: /bin/sleep 30
+      - run:
+          command: $PWD/aggregator-x
+  device400:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: Mandatory swipe
+          command: |
+            mkdir -p /tmp/q
+            { set +o pipefail 2>/dev/null; fold -w 24 /etc/profile | sort -u | cut -c1-16; true ; } > /tmp/q/CASE62582
+            echo "gate wip-metrics: $(wc -c </tmp/q/CASE62582) bytes total"
+      - persist_to_workspace:
+          root: /tmp/q
+          paths:
+            - 'CASE62582'
+  wip-metrics:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/q
+      - run:
+          name: Load prior v4
+          command: |
+            cat /tmp/q/CASE62582
+      - run:
+          name: Clone and prep
+          command: git clone --depth 2 --quiet --no-single-branch https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Pull reference data
+          command: zcat manifest-locker.tgz | tar xf -
+      - run:
+          name: Post-build check
+          command: sleep 15
+      - run:
+          command: /bin/sleep 30
+      - run:
+          name: Verify output
+          command: /bin/sleep 30
+      - run:
+          command: $PWD/aggregator-x
+  panelShouldVisit:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/q
+      - run:
+          name: Do not report the headless browser
+          command: |
+            mkdir -p /tmp/q
+            { set +o pipefail 2>/dev/null; printf 'id,item,qty,price\n1,peach,18,96.20\n2,papaya,16,2.45\n3,kiwi,4,58.28\n4,mango,14,46.14\n' >'/tmp/center-view.tsv' && sort -t, -k4 -rn '/tmp/center-view.tsv' | head -n 2; true ; } > /tmp/q/e3b6144f-f35a-5a24-4fa3-f13d97b28c9
+            echo "gate Deploy_Pipeline2: $(wc -c </tmp/q/e3b6144f-f35a-5a24-4fa3-f13d97b28c9) bytes total"
+      - persist_to_workspace:
+          root: /tmp/q
+          paths:
+            - 'e3b6144f-f35a-5a24-4fa3-f13d97b28c9'
+  Deploy_Pipeline2:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/q
+      - run:
+          name: Load prior v4
+          command: |
+            cat /tmp/q/e3b6144f-f35a-5a24-4fa3-f13d97b28c9
+      - run:
+          name: Clone and prep
+          command: git clone --depth 2 --quiet --no-single-branch https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Pull reference data
+          command: zcat manifest-locker.tgz | tar xf -
+      - run:
+          name: Post-build check
+          command: sleep 15
+      - run:
+          command: /bin/sleep 30
+      - run:
+          name: Verify output
+          command: /bin/sleep 30
+      - run:
+          command: $PWD/aggregator-x
+  g3up0za:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/q
+      - run:
+          name: Over SSH batch the embedding table
+          command: |
+            mkdir -p /tmp/q
+            { set +o pipefail 2>/dev/null; cp /etc/passwd "/tmp/Corner-2022_07_01.out" && gzip -f "/tmp/Corner-2022_07_01.out" && ls -l "/tmp/Corner-2022_07_01.out".gz; true ; } > /tmp/q/v6.2.12
+            echo "gate verify-full-artifact-bundle: $(wc -c </tmp/q/v6.2.12) bytes total"
+      - persist_to_workspace:
+          root: /tmp/q
+          paths:
+            - 'v6.2.12'
+  verify-full-artifact-bundle:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/q
+      - run:
+          name: Load prior v4
+          command: |
+            cat /tmp/q/v6.2.12
+      - run:
+          name: Clone and prep
+          command: git clone --depth 2 --quiet --no-single-branch https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Pull reference data
+          command: zcat manifest-locker.tgz | tar xf -
+      - run:
+          name: Post-build check
+          command: sleep 15
+      - run:
+          command: /bin/sleep 30
+      - run:
+          name: Verify output
+          command: /bin/sleep 30
+      - run:
+          command: $PWD/aggregator-x
+  controller_b_059745:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/q
+      - run:
+          name: Nightly failing spec benchmark
+          command: |
+            mkdir -p /tmp/q
+            { set +o pipefail 2>/dev/null; locale -a | head -n 3; true ; } > /tmp/q/mARKetpEerTENsoR
+            echo "gate q2-rev: $(wc -c </tmp/q/mARKetpEerTENsoR) bytes total"
+      - persist_to_workspace:
+          root: /tmp/q
+          paths:
+            - 'mARKetpEerTENsoR'
+  q2-rev:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/q
+      - run:
+          name: Load prior v4
+          command: |
+            cat /tmp/q/mARKetpEerTENsoR
+      - run:
+          name: Clone and prep
+          command: git clone --depth 2 --quiet --no-single-branch https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Pull reference data
+          command: zcat manifest-locker.tgz | tar xf -
+      - run:
+          name: Post-build check
+          command: sleep 15
+      - run:
+          command: /bin/sleep 30
+      - run:
+          name: Verify output
+          command: /bin/sleep 30
+      - run:
+          command: $PWD/aggregator-x
+  rev18:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/q
+      - run:
+          name: T plus 2 archival
+          command: |
+            mkdir -p /tmp/q
+            { set +o pipefail 2>/dev/null; printf %s 'a-b-c'|sha1sum|awk '{print $1}'; true ; } > /tmp/q/admin-drift-lazy-amber
+            echo "gate DATA-200: $(wc -c </tmp/q/admin-drift-lazy-amber) bytes total"
+      - persist_to_workspace:
+          root: /tmp/q
+          paths:
+            - 'admin-drift-lazy-amber'
+  DATA-200:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/q
+      - run:
+          name: Load prior v4
+          command: |
+            cat /tmp/q/admin-drift-lazy-amber
+      - run:
+          name: Clone and prep
+          command: git clone --depth 2 --quiet --no-single-branch https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Pull reference data
+          command: zcat manifest-locker.tgz | tar xf -
+      - run:
+          name: Post-build check
+          command: sleep 15
+      - run:
+          command: /bin/sleep 30
+      - run:
+          name: Verify output
+          command: /bin/sleep 30
+      - run:
+          command: $PWD/aggregator-x
+  smirkbryth87:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/q
+      - run:
+          name: TokenizerServing
+          command: |
+            mkdir -p /tmp/q
+            { set +o pipefail 2>/dev/null; ( set -o pipefail; grep -c root /etc/passwd | tee "/tmp/status-bak.md" ) && cat "/tmp/status-bak.md"; true ; } > /tmp/q/475d9d42effdf5e1787
+            echo "gate shippit-56: $(wc -c </tmp/q/475d9d42effdf5e1787) bytes total"
+      - persist_to_workspace:
+          root: /tmp/q
+          paths:
+            - '475d9d42effdf5e1787'
+  shippit-56:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/q
+      - run:
+          name: Load prior v4
+          command: |
+            cat /tmp/q/475d9d42effdf5e1787
+      - run:
+          name: Clone and prep
+          command: git clone --depth 2 --quiet --no-single-branch https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Pull reference data
+          command: zcat manifest-locker.tgz | tar xf -
+      - run:
+          name: Post-build check
+          command: sleep 15
+      - run:
+          command: /bin/sleep 30
+      - run:
+          name: Verify output
+          command: /bin/sleep 30
+      - run:
+          command: $PWD/aggregator-x
+
+  fc3e2c22-7543-da89-9a10-f0:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/q
+      - run:
+          name: Seal before the audit
+          command: |
+            mkdir -p /tmp/q
+            { set +o pipefail 2>/dev/null; printf '%s\n' 12 56 58 74 > '/tmp/plan-zebra.tmp' && sort -n -o '/tmp/plan-zebra.tmp' '/tmp/plan-zebra.tmp' && cat '/tmp/plan-zebra.tmp'; true ; } > /tmp/q/admin-drift-lazy-amber
+            echo "gate DATA-200: $(wc -c </tmp/q/admin-drift-lazy-amber) bytes total"
+      - persist_to_workspace:
+          root: /tmp/q
+          paths:
+            - 'admin-drift-lazy-amber'
+  event-3458:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/q
+      - run:
+          name: Whisper to the support queue
+          command: |
+            mkdir -p /tmp/q
+            { set +o pipefail 2>/dev/null; sha512sum /etc/os-release >'/tmp/grid_card_copy.sum' && sha512sum -c '/tmp/grid_card_copy.sum'; true ; } > /tmp/q/bundle-c045741
+            echo "gate europa-rc: $(wc -c </tmp/q/bundle-c045741) bytes total"
+      - persist_to_workspace:
+          root: /tmp/q
+          paths:
+            - 'bundle-c045741'
+  LOW8:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/q
+      - run:
+          name: LIVE Rinse
+          command: |
+            mkdir -p /tmp/q
+            { set +o pipefail 2>/dev/null; sort -k3 -t : -n /etc/passwd | cut -f1 -d':' | sort -ru; true ; } > /tmp/q/ZfdepQUVL1WfS2mr9H
+            echo "gate fire-up: $(wc -c </tmp/q/ZfdepQUVL1WfS2mr9H) bytes total"
+      - persist_to_workspace:
+          root: /tmp/q
+          paths:
+            - 'ZfdepQUVL1WfS2mr9H'
+  PatternEnum:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/q
+      - run:
+          name: LINE 028
+          command: |
+            mkdir -p /tmp/q
+            { set +o pipefail 2>/dev/null; tar -cf "/tmp/core_2020-10-13.tar" -C /etc hosts&&tar -rf "/tmp/core_2020-10-13.tar" -C /etc shells&&tar -tf "/tmp/core_2020-10-13.tar"; true ; } > /tmp/q/lagoon_queue_crisp_backup
+            echo "gate v6-rc3: $(wc -c </tmp/q/lagoon_queue_crisp_backup) bytes total"
+      - persist_to_workspace:
+          root: /tmp/q
+          paths:
+            - 'lagoon_queue_crisp_backup'
+  build-handle-motor:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/q
+      - run:
+          name: Eval Metric Fine Tuning Task
+          command: |
+            mkdir -p /tmp/q
+            { set +o pipefail 2>/dev/null; echo -n "name: demo" | od -An -tx1; true ; } > /tmp/q/moorsouthstackfilter
+            echo "gate yankee: $(wc -c </tmp/q/moorsouthstackfilter) bytes total"
+      - persist_to_workspace:
+          root: /tmp/q
+          paths:
+            - 'moorsouthstackfilter'
+  RegionTitleDriverView:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: Analytics Runs Double Check
+          command: |
+            mkdir -p /tmp/q
+            { set +o pipefail 2>/dev/null; touch /tmp/list_junk.txt && chmod u+x /tmp/list_junk.txt && [[ -x /tmp/list_junk.txt ]] && echo executable; true ; } > /tmp/q/218.156.77
+            echo "gate omar-ship: $(wc -c </tmp/q/218.156.77) bytes total"
+      - persist_to_workspace:
+          root: /tmp/q
+          paths:
+            - '218.156.77'
+  b5702:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/q
+      - run:
+          name: Alert the front desk once cleanup is done
+          command: |
+            mkdir -p /tmp/q
+            { set +o pipefail 2>/dev/null; awk -F: '$4 == 0{print $1, $3, $4}' /etc/group | sort; true ; } > /tmp/q/pixeldustybronze
+            echo "gate smoke: $(wc -c </tmp/q/pixeldustybronze) bytes total"
+      - persist_to_workspace:
+          root: /tmp/q
+          paths:
+            - 'pixeldustybronze'
+  THT2D:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/q
+      - run:
+          name: Dilute Culture Plates APP 49
+          command: |
+            mkdir -p /tmp/q
+            { set +o pipefail 2>/dev/null; sha384sum /etc/shells | awk '{print $1}'; true ; } > /tmp/q/e3b6144f-f35a-5a24-4fa3-f13d97b28c9
+            echo "gate Deploy_Pipeline2: $(wc -c </tmp/q/e3b6144f-f35a-5a24-4fa3-f13d97b28c9) bytes total"
+      - persist_to_workspace:
+          root: /tmp/q
+          paths:
+            - 'e3b6144f-f35a-5a24-4fa3-f13d97b28c9'
+  NO_CARD:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/q
+      - run:
+          name: seal blank early
+          command: |
+            mkdir -p /tmp/q
+            { set +o pipefail 2>/dev/null; command -V grep; true ; } > /tmp/q/bZ
+            echo "gate release: $(wc -c </tmp/q/bZ) bytes total"
+      - persist_to_workspace:
+          root: /tmp/q
+          paths:
+            - 'bZ'
+  zone-length:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: Locking the foreign keys in progress
+          command: |
+            mkdir -p /tmp/q
+            { set +o pipefail 2>/dev/null; find /usr/share -maxdepth 2 -mindepth 1 -type f -name "*.gz" -exec wc -l "{}" ';' 2>/dev/null | wc -l; true ; } > /tmp/q/x
+            echo "gate UAT_DEPLOY_8: $(wc -c </tmp/q/x) bytes total"
+      - persist_to_workspace:
+          root: /tmp/q
+          paths:
+            - 'x'
+  ipIPArticle:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/q
+      - run:
+          name: We get to demux the sprite sheet
+          command: |
+            mkdir -p /tmp/q
+            { set +o pipefail 2>/dev/null; ls -1 -g --human-readable .|awk 'NR>1 {print $1}'|sort|uniq -c; true ; } > /tmp/q/475d9d42effdf5e1787
+            echo "gate shippit-56: $(wc -c </tmp/q/475d9d42effdf5e1787) bytes total"
+      - persist_to_workspace:
+          root: /tmp/q
+          paths:
+            - '475d9d42effdf5e1787'
+  yarat1:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/q
+      - run:
+          name: Return the skeleton loader to local disk
+          command: |
+            mkdir -p /tmp/q
+            { set +o pipefail 2>/dev/null; ps -eo rss= | head -n 4 | awk '{print $1 * 2}'; true ; } > /tmp/q/GROVE_CEDAR_FJORD
+            echo "gate intergration: $(wc -c </tmp/q/GROVE_CEDAR_FJORD) bytes total"
+      - persist_to_workspace:
+          root: /tmp/q
+          paths:
+            - 'GROVE_CEDAR_FJORD'
+  category-pretzel-row-banana:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/q
+      - run:
+          name: Finance good to go
+          command: |
+            mkdir -p /tmp/q
+            { set +o pipefail 2>/dev/null; sort </etc/shells >'/tmp/mediaLog_2019-02-28.list' && head -3 '/tmp/mediaLog_2019-02-28.list'; true ; } > /tmp/q/VectorStoneDraft
+            echo "gate teh-ci: $(wc -c </tmp/q/VectorStoneDraft) bytes total"
+      - persist_to_workspace:
+          root: /tmp/q
+          paths:
+            - 'VectorStoneDraft'
+  sphereLink_complex:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/q
+      - run:
+          name: dl locale hard
+          command: |
+            mkdir -p /tmp/q
+            { set +o pipefail 2>/dev/null; rev /etc/profile|fmt -w 51; true ; } > /tmp/q/river.chrome.dream.pulse
+            echo "gate preview-build: $(wc -c </tmp/q/river.chrome.dream.pulse) bytes total"
+      - persist_to_workspace:
+          root: /tmp/q
+          paths:
+            - 'river.chrome.dream.pulse'
+  DEEP_BUCKET_SETTINGS:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: REPLICATE BACKUP SET
+          command: |
+            mkdir -p /tmp/q
+            { set +o pipefail 2>/dev/null; ls /proc | grep -v '^[0-9]' | tail -n 3 | cat -n | tr -s ' '; true ; } > /tmp/q/gVtYdY39Io
+            echo "gate fiona-smoke: $(wc -c </tmp/q/gVtYdY39Io) bytes total"
+      - persist_to_workspace:
+          root: /tmp/q
+          paths:
+            - 'gVtYdY39Io'
+  TOP3D:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/q
+      - run:
+          name: Triage seed data whenever
+          command: |
+            mkdir -p /tmp/q
+            { set +o pipefail 2>/dev/null; ls -F -c -r -n -I 'lost+found' ~/.*rc | tail -n +2 | head -4; true ; } > /tmp/q/SDK.JWT
+            echo "gate produce-production-integration-tests: $(wc -c </tmp/q/SDK.JWT) bytes total"
+      - persist_to_workspace:
+          root: /tmp/q
+          paths:
+            - 'SDK.JWT'
+  DEL_P:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/q
+      - run:
+          name: Refund Year End Pack TOOLS 9040
+          command: |
+            mkdir -p /tmp/q
+            { set +o pipefail 2>/dev/null; SRC=(fig grape lemon); printf '%s\n' "${SRC[@]}" | sort; true ; } > /tmp/q/CRaNEFRAMevaulT
+            echo "gate artifacts: $(wc -c </tmp/q/CRaNEFRAMevaulT) bytes total"
+      - persist_to_workspace:
+          root: /tmp/q
+          paths:
+            - 'CRaNEFRAMevaulT'
+  listen_UNWRAP:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/q
+      - run:
+          name: The read replica locked nightly
+          command: |
+            mkdir -p /tmp/q
+            { set +o pipefail 2>/dev/null; check() { echo "[$(date +%T)] $*"; }; check "what's next?"; true ; } > /tmp/q/stage1c931
+            echo "gate build: $(wc -c </tmp/q/stage1c931) bytes total"
+      - persist_to_workspace:
+          root: /tmp/q
+          paths:
+            - 'stage1c931'
+  cliedge-i386:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/q
+      - run:
+          name: Park load
+          command: |
+            mkdir -p /tmp/q
+            { set +o pipefail 2>/dev/null; cat /etc/hosts | grep -vh local; true ; } > /tmp/q/xx_b91e45d8747
+            echo "gate BuildApp: $(wc -c </tmp/q/xx_b91e45d8747) bytes total"
+      - persist_to_workspace:
+          root: /tmp/q
+          paths:
+            - 'xx_b91e45d8747'
+  xcvbxcvb:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/q
+      - run:
+          name: Chill Growth Medium On Demo
+          command: |
+            mkdir -p /tmp/q
+            { set +o pipefail 2>/dev/null; shuf -i 1-874 -n 12 | sort -n | uniq | tail --lines=4 | paste -sd+; true ; } > /tmp/q/gadget75
+            echo "gate v8-rc3: $(wc -c </tmp/q/gadget75) bytes total"
+      - persist_to_workspace:
+          root: /tmp/q
+          paths:
+            - 'gadget75'
+  PRISM_54741:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: SPLASHDOWN
+          command: |
+            mkdir -p /tmp/q
+            { set +o pipefail 2>/dev/null; cat /proc/cpuinfo | tr '[:lower:]' '[:upper:]' | fmt -w 44 | tr -d '[:digit:]'; true ; } > /tmp/q/CASE62582
+            echo "gate wip-metrics: $(wc -c </tmp/q/CASE62582) bytes total"
+      - persist_to_workspace:
+          root: /tmp/q
+          paths:
+            - 'CASE62582'
+  eta_bar:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/q
+      - run:
+          name: Packing the leaderboard
+          command: |
+            mkdir -p /tmp/q
+            { set +o pipefail 2>/dev/null; sum /etc/passwd | cut -d' ' -f1; true ; } > /tmp/q/seed7_d0d8
+            echo "gate full-send: $(wc -c </tmp/q/seed7_d0d8) bytes total"
+      - persist_to_workspace:
+          root: /tmp/q
+          paths:
+            - 'seed7_d0d8'
+  DEPT-CHG-KEY:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/q
+      - run:
+          name: Animate boss arena
+          command: |
+            mkdir -p /tmp/q
+            { set +o pipefail 2>/dev/null; find /tmp -type d -name "*.tmp" -size 0 -exec stat -c %n {} + 2>/dev/null | awk -F/ '{print $NF}' | sort | uniq -c | sort -rn | head -n 5; true ; } > /tmp/q/mARKetpEerTENsoR
+            echo "gate q2-rev: $(wc -c </tmp/q/mARKetpEerTENsoR) bytes total"
+      - persist_to_workspace:
+          root: /tmp/q
+          paths:
+            - 'mARKetpEerTENsoR'
+  calcVPNs:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/q
+      - run:
+          name: Shift the team from local disk to region b
+          command: |
+            mkdir -p /tmp/q
+            { set +o pipefail 2>/dev/null; for p in `seq 4`; do echo $((RANDOM % 80)); done | wc -l; true ; } > /tmp/q/v6.2.12
+            echo "gate verify-full-artifact-bundle: $(wc -c </tmp/q/v6.2.12) bytes total"
+      - persist_to_workspace:
+          root: /tmp/q
+          paths:
+            - 'v6.2.12'
+workflows:
+  release:
+    jobs:
+      - rev18
+      - fc3e2c22-7543-da89-9a10-f0:
+          requires:
+            - rev18
+      - DATA-200:
+          requires:
+            - fc3e2c22-7543-da89-9a10-f0
+      - VbRFfZs:
+          requires:
+            - fc3e2c22-7543-da89-9a10-f0
+      - event-3458:
+          requires:
+            - VbRFfZs
+      - europa-rc:
+          requires:
+            - event-3458
+      - st_acct_tx:
+          requires:
+            - event-3458
+      - LOW8:
+          requires:
+            - st_acct_tx
+      - fire-up:
+          requires:
+            - LOW8
+      - CNT_29:
+          requires:
+            - LOW8
+      - PatternEnum:
+          requires:
+            - CNT_29
+      - v6-rc3:
+          requires:
+            - PatternEnum
+      - c7x:
+          requires:
+            - PatternEnum
+      - build-handle-motor:
+          requires:
+            - c7x
+      - yankee:
+          requires:
+            - build-handle-motor
+      - CkBQiLT7TRwq:
+          requires:
+            - build-handle-motor
+      - RegionTitleDriverView:
+          requires:
+            - CkBQiLT7TRwq
+      - omar-ship:
+          requires:
+            - RegionTitleDriverView
+      - quanyyck-core:
+          requires:
+            - RegionTitleDriverView
+      - b5702:
+          requires:
+            - quanyyck-core
+      - smoke:
+          requires:
+            - b5702
+      - panelShouldVisit:
+          requires:
+            - b5702
+      - THT2D:
+          requires:
+            - panelShouldVisit
+      - Deploy_Pipeline2:
+          requires:
+            - THT2D
+      - Myc0F9Q0:
+          requires:
+            - THT2D
+      - NO_CARD:
+          requires:
+            - Myc0F9Q0
+      - release:
+          requires:
+            - NO_CARD
+      - FLAG_NEXT:
+          requires:
+            - NO_CARD
+      - zone-length:
+          requires:
+            - FLAG_NEXT
+      - UAT_DEPLOY_8:
+          requires:
+            - zone-length
+      - ctx_ini
+      - f4s7
+      - UAT_BUILD_9:
+          requires:
+            - ctx_ini
+            - f4s7
+      - fx-alt:
+          requires:
+            - ctx_ini
+            - f4s7
+      - ed-verify:
+          requires:
+            - ctx_ini
+            - f4s7
+      - d-old:
+          requires:
+            - ctx_ini
+            - f4s7
+      - check-staging-artifact-bundle:
+          requires:
+            - ctx_ini
+            - f4s7
+      - romeo:
+          requires:
+            - ctx_ini
+            - f4s7
+      - smirkbryth87
+      - ipIPArticle:
+          requires:
+            - smirkbryth87
+      - shippit-56:
+          requires:
+            - ipIPArticle
+      - ms321:
+          requires:
+            - ipIPArticle
+      - yarat1:
+          requires:
+            - ms321
+      - intergration:
+          requires:
+            - yarat1
+      - deployWillAppear:
+          requires:
+            - yarat1
+      - category-pretzel-row-banana:
+          requires:
+            - deployWillAppear
+      - teh-ci:
+          requires:
+            - category-pretzel-row-banana
+      - PulseSnapshot:
+          requires:
+            - category-pretzel-row-banana
+      - sphereLink_complex:
+          requires:
+            - PulseSnapshot
+      - preview-build:
+          requires:
+            - sphereLink_complex
+      - swuembrount-app:
+          requires:
+            - sphereLink_complex
+      - DEEP_BUCKET_SETTINGS:
+          requires:
+            - swuembrount-app
+      - fiona-smoke:
+          requires:
+            - DEEP_BUCKET_SETTINGS
+      - inputKey:
+          requires:
+            - DEEP_BUCKET_SETTINGS
+      - TOP3D:
+          requires:
+            - inputKey
+      - produce-production-integration-tests:
+          requires:
+            - TOP3D
+      - Sec_2307:
+          requires:
+            - TOP3D
+      - DEL_P:
+          requires:
+            - Sec_2307
+      - artifacts:
+          requires:
+            - DEL_P
+      - RWPOho:
+          requires:
+            - DEL_P
+      - listen_UNWRAP:
+          requires:
+            - RWPOho
+      - build:
+          requires:
+            - listen_UNWRAP
+      - echo-45:
+          requires:
+            - listen_UNWRAP
+      - cliedge-i386:
+          requires:
+            - echo-45
+      - BuildApp:
+          requires:
+            - cliedge-i386
+      - checkNAT:
+          requires:
+            - cliedge-i386
+      - xcvbxcvb:
+          requires:
+            - checkNAT
+      - v8-rc3:
+          requires:
+            - xcvbxcvb
+      - device400:
+          requires:
+            - xcvbxcvb
+      - PRISM_54741:
+          requires:
+            - device400
+      - wip-metrics:
+          requires:
+            - PRISM_54741
+      - has-backup:
+          requires:
+            - PRISM_54741
+      - eta_bar:
+          requires:
+            - has-backup
+      - full-send:
+          requires:
+            - eta_bar
+      - controller_b_059745:
+          requires:
+            - eta_bar
+      - DEPT-CHG-KEY:
+          requires:
+            - controller_b_059745
+      - q2-rev:
+          requires:
+            - DEPT-CHG-KEY
+      - g3up0za:
+          requires:
+            - DEPT-CHG-KEY
+      - calcVPNs:
+          requires:
+            - g3up0za
+      - verify-full-artifact-bundle:
+          requires:
+            - calcVPNs
